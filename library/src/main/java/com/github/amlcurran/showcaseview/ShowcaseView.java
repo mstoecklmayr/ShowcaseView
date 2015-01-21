@@ -36,6 +36,8 @@ import android.widget.RelativeLayout;
 
 import com.github.amlcurran.showcaseview.targets.Target;
 
+import java.util.List;
+
 import static com.github.amlcurran.showcaseview.AnimationFactory.AnimationEndListener;
 import static com.github.amlcurran.showcaseview.AnimationFactory.AnimationStartListener;
 
@@ -95,7 +97,6 @@ public class ShowcaseView extends RelativeLayout
         final TypedArray styled = context.getTheme()
                 .obtainStyledAttributes(attrs, R.styleable.ShowcaseView, R.attr.showcaseViewStyle,
                         R.style.ShowcaseView);
-
 
         // Set the default animation times
         fadeInMillis = getResources().getInteger(android.R.integer.config_mediumAnimTime);
@@ -185,7 +186,7 @@ public class ShowcaseView extends RelativeLayout
     private void updateBitmap() {
         if (bitmapBuffer == null || haveBoundsChanged()) {
             if(bitmapBuffer != null)
-        		bitmapBuffer.recycle();
+                bitmapBuffer.recycle();
             bitmapBuffer = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 
         }
@@ -505,6 +506,7 @@ public class ShowcaseView extends RelativeLayout
             showcaseView.setOnShowcaseEventListener(showcaseEventListener);
             return this;
         }
+
     }
 
     /**
@@ -634,5 +636,10 @@ public class ShowcaseView extends RelativeLayout
             hide();
         }
     };
+
+    public static boolean resetShotState(Context context, List<Integer> shotIds){
+        ShotStateStore shotStateStore = new ShotStateStore(context);
+        return shotStateStore.resetSingleShots(context, shotIds);
+    }
 
 }

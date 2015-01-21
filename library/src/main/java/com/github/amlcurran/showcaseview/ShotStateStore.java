@@ -19,6 +19,8 @@ package com.github.amlcurran.showcaseview;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.List;
+
 class ShotStateStore {
 
     private static final String PREFS_SHOWCASE_INTERNAL = "showcase_internal";
@@ -45,7 +47,7 @@ class ShotStateStore {
     void storeShot() {
         if (isSingleShot()) {
             SharedPreferences internal = context.getSharedPreferences(PREFS_SHOWCASE_INTERNAL, Context.MODE_PRIVATE);
-            internal.edit().putBoolean("hasShot" + shotId, true).apply();
+            internal.edit().putBoolean("hasShot" + shotId, true).commit();
         }
     }
 
@@ -53,4 +55,12 @@ class ShotStateStore {
         this.shotId = shotId;
     }
 
+    public static boolean resetSingleShots(Context context, List<Integer> shotIds){
+        if(shotIds == null || shotIds.size() == 0) return false;
+        SharedPreferences internal = context.getSharedPreferences(PREFS_SHOWCASE_INTERNAL, Context.MODE_PRIVATE);
+        for(Integer shotId : shotIds){
+            internal.edit().putBoolean("hasShot"+shotId,false).commit();
+        }
+        return true;
+    }
 }
