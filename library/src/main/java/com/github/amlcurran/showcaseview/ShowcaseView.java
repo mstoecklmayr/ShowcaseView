@@ -96,6 +96,7 @@ public class ShowcaseView extends RelativeLayout
                 .obtainStyledAttributes(attrs, R.styleable.ShowcaseView, R.attr.showcaseViewStyle,
                         R.style.ShowcaseView);
 
+
         // Set the default animation times
         fadeInMillis = getResources().getInteger(android.R.integer.config_mediumAnimTime);
         fadeOutMillis = getResources().getInteger(android.R.integer.config_mediumAnimTime);
